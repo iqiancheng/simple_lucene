@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.util.Version;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
@@ -34,7 +35,7 @@ public class Config {
 		} catch (FileNotFoundException e) {
 			Log.log.error("*****************Properties file '" + confFile + "' not found!*****************", e);
 		} catch (IOException e) {
-			Log.log.error("*****************Properties file '" + confFile + "' found IOException!*****************", e);
+			Log.log.error("*****************Properties file '" + confFile + "' IO error!*****************", e);
 		} finally {
 			if (inStream != null) {
 				try {
@@ -71,5 +72,11 @@ public class Config {
 	 * Lucene document id's name.
 	 */
 	public static final String IDNAME = "id";
+
+	/**
+	 * 用于HTML格式化高亮显示.
+	 */
+	public static final SimpleHTMLFormatter SIMPLE_HTML_FORMATTER = new SimpleHTMLFormatter(
+			"<span class=\"highlighter\">", "</span>");
 
 }

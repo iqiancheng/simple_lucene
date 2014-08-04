@@ -48,15 +48,15 @@ public class SearchFiles {
 			}
 			searchResult.setDocuments(documents);
 		} catch (IOException e) {
-			Log.log.error("", e);
+			Log.log.error("IndexSearcher IO error.", e);
 		} catch (ParseException e) {
-			Log.log.error("", e);
+			Log.log.error("QueryParser parse error.", e);
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					Log.log.error("Close IndexReader fail.", e);
+					Log.log.error("Close IndexReader error.", e);
 				}
 			}
 		}

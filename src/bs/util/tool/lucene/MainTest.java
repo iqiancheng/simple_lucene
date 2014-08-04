@@ -11,18 +11,38 @@ import org.apache.lucene.index.IndexWriter;
 import bs.util.tool.lucene.common.ConvertUtils;
 import bs.util.tool.lucene.common.DocumentType;
 import bs.util.tool.lucene.common.FileBean;
+import bs.util.tool.lucene.common.HighlighterUtils;
 import bs.util.tool.lucene.common.Log;
 import bs.util.tool.lucene.common.SearchResult;
+import bs.util.tool.lucene.common.SegmenterUtils;
 import bs.util.tool.lucene.index.IndexFiles;
 import bs.util.tool.lucene.search.SearchFiles;
 
+/**
+ * 测试.
+ * 
+ * @author baishui2004
+ */
 public class MainTest {
 
 	public static void main(String[] args) {
-		operateIndex();
-		search();
+		ikSegmenter(); // IKAnalyzer分词
+		operateIndex(); // 创建/更新/删除索引
+		search(); // 检索
+		highlighter(); // 高亮显示
 	}
 
+	/**
+	 * IKAnalyzer分词.
+	 */
+	public static void ikSegmenter() {
+		String sentence = "你好啊，今天天气真好啊，你吃过早饭了吗？";
+		System.out.println("\n句子“" + sentence + "”的分词结果：" + SegmenterUtils.ikSegmenter(sentence));
+	}
+
+	/**
+	 * 创建/更新/删除索引.
+	 */
 	public static void operateIndex() {
 		IndexWriter writer = null;
 		try {
@@ -45,15 +65,24 @@ public class MainTest {
 				documents.add(ConvertUtils.fileToDocument(fileBean));
 			}
 
-			//IndexFiles.addIndex(documents, writer);
+			// IndexFiles.addIndex(documents, writer);
 			IndexFiles.updateIndex(documents, writer);
-			//IndexFiles.deleteIndex(documents, writer);
+			// IndexFiles.deleteIndex(documents, writer);
+			// writer.deleteAll(); // Delete all documents in the index.
 
+			// Forces merge policy to merge segments until there are <= maxNumSegments.
+			// writer.forceMerge(1);
+
+			// commit(): Commits all pending changes (added & deleted documents, segment merges, added indexes, etc.) to the index, 
+			//   and syncs all referenced index files, 
+			//   such that a reader will see the changes and the index updates will survive an OS or machine crash or power loss.
+			writer.commit();
 		} catch (IOException e) {
 			Log.log.error("New IndexWriter error.", e);
 		} finally {
 			if (writer != null) {
 				try {
+					// close(): Commits all changes to an index, waits for pending merges to complete, and closes all associated files.
 					writer.close();
 				} catch (IOException e) {
 					Log.log.error("Close IndexWriter error.", e);
@@ -62,16 +91,35 @@ public class MainTest {
 		}
 	}
 
+	/**
+	 * 检索.
+	 */
 	public static void search() {
 		SearchResult searchResult = SearchFiles.search("content", "你好", 2);
-		System.out.println("结果总数：" + searchResult.getTopDocs().totalHits);
+		System.out.println("\n\n检索获得结果总数：" + searchResult.getTopDocs().totalHits);
 		List<Document> documents = searchResult.getDocuments();
+		System.out.println("\n当前展示结果总数：" + documents.size() + "，列出如下：");
 		for (int i = 0; i < documents.size(); i++) {
 			Document document = documents.get(i);
 			System.out.print("Id: " + document.get("id") + ", Title: " + document.get("title") + ", Type: "
 					+ document.get("type") + ", Content: " + document.get("content") + ", Uri: " + document.get("uri")
 					+ ", Time: " + new Date(Long.parseLong(document.get("time"))) + "\n");
 		}
+	}
+
+	/**
+	 * 高亮显示.
+	 */
+	public static void highlighter() {
+		String queryString = "你好 好啊";
+		String sentence = "你好，今天天气真好啊！";
+
+		System.out.println("\n\n" + HighlighterUtils.highlighter(queryString, sentence));
+
+		List<String> contents = new ArrayList<String>();
+		contents.add(sentence);
+		contents.add("你好，好啊，今天天气真好啊！");
+		System.out.println(HighlighterUtils.highlighter(queryString, contents));
 	}
 
 }

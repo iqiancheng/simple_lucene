@@ -9,6 +9,10 @@
 	<name>simple_lucene</name>
 	<url>https://github.com/baishui2004/simple_lucene</url>
 	<description>Simple lucene project.</description>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -26,6 +30,12 @@
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-analyzers-common</artifactId>
+			<version>4.9.0</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-highlighter</artifactId>
 			<version>4.9.0</version>
 			<scope>runtime</scope>
 		</dependency>
