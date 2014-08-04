@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="**/*.java" kind="src" path="src"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/IKAnalyzer2012FF_u1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-core/4.9.0/lucene-core-4.9.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v6.0"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/Jdk7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v6.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/IKAnalyzer2012FF_u1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar" sourcepath="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-analyzers-common/4.9.0/lucene-analyzers-common-4.9.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-core/4.9.0/lucene-core-4.9.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-queries/4.9.0/lucene-queries-4.9.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-queryparser/4.9.0/lucene-queryparser-4.9.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-sandbox/4.9.0/lucene-sandbox-4.9.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.1/slf4j-api-1.7.1.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.7.1/slf4j-api-1.7.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.7.1/slf4j-log4j12-1.7.1.jar" sourcepath="M2_REPO/org/slf4j/slf4j-log4j12/1.7.1/slf4j-log4j12-1.7.1-sources.jar"/>
+	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
